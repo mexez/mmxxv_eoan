@@ -1,0 +1,58 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: BuildApp
+  displayName: BuildApp
+  jobs:
+  - job: BuildFrontendApp 
+    displayName: Build Frontend App 
+    steps:
+    - script: echo building frontend app
+      displayName: build frontend app 
+    - script: echo running unit tests for frontend app
+      displayName: unit test frontend
+
+  - job: BuildBackenddApp 
+    displayName: Build Backend App 
+    steps:
+    - script: echo building backend app
+      displayName: build backend app 
+    - script: echo running unit tests for backend app
+      displayName: unit test backend
+
+- stage: DeployDev
+  displayName: Deploy to DEV environment
+  jobs:
+  - job: DeployFrontendDev 
+    displayName: Build Frontend to DEV
+    steps:
+    - script: echo deploying backend app to DEV
+      displayName: deploying backend app to DEV
+
+  - job: DeployBackendDev 
+    displayName: Build Backend to DEV 
+    steps:
+    - script: echo building backend app to DEV
+      displayName: deploy backend app to DEV
+
+- stage: DeployProd
+  displayName: Deploy to PROD environment
+  jobs:
+  - job: DeployFrontendProd 
+    displayName: Deploy frontend to PROD
+    steps:
+    - script: echo deploying frontend app to PROD
+      displayName: deploy frontend app to PROD
+
+  - job: DeployBackendProd 
+    displayName: Deploy backend to PROD
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - script: echo deploying backend app to PROD
+      displayName: deploy backend app to PROD
+      
