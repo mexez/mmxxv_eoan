@@ -25,6 +25,7 @@ stages:
       displayName: unit test backend
 
 - stage: DeployDev
+  dependsOn: BuildApp
   displayName: Deploy to DEV environment
   jobs:
   - job: DeployFrontendDev 
@@ -40,6 +41,9 @@ stages:
       displayName: deploy backend app to DEV
 
 - stage: DeployProd
+  dependsOn:
+  - BuildApp
+  - DeployDev
   displayName: Deploy to PROD environment
   jobs:
   - job: DeployFrontendProd 
